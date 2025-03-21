@@ -1,13 +1,21 @@
+import { UploadWidgetUploadItem } from "./upload-widget-upload-item";
+
 export function UploadWidgetUploadList() {
+  const isUploadListEmpty = false;
   return (
-    <div className="flex flex-col gap-2 p-4">
-      <div className="flex items-center justify-between">
-        <span className="text-sm font-medium">Uploading</span>
-        <span className="text-xs text-zinc-500">1/1</span>
-      </div>
-      <div className="bg-zinc-800 rounded-lg h-2">
-        <div className="bg-zinc-500 h-2 rounded-lg" />
-      </div>
-    </div>
+    <div className="px-3 flex flex-col gap-3">
+    <span className="text-xs font-medium">
+      Uploaded files <span className="text-zinc-400">(2)</span>
+    </span>
+
+    {isUploadListEmpty ? (
+        <span className="text-xs text-zinc-400">No uploads added</span>
+      ) : (
+        <div className="flex flex-col gap-2">
+          <UploadWidgetUploadItem />
+          <UploadWidgetUploadItem />
+        </div>
+      )}
+  </div>
   )
 }
