@@ -24,13 +24,36 @@ export const useUploads = create<UploadState, [["zustand/immer", never]]>(
 
       if(!upload) return;
 
-      await uploadFileToStorage({file: upload.file})
+      try {
+        await uploadFileToStorage(
+          {file: upload.file},
+          {signal: upload.abortController.signal}
+        )
+  
+        set((state) => {
+          state.uploads.set(uploadId, {
+            ...upload,
+            status: "success",
+          });
+        });
+        
+      } catch (error) {
+        console.log(error)
+        set((state) => {
+          state.uploads.set(uploadId, {
+            ...upload,
+            status: "error",
+          });
+        });
+      }
 
     }
 
     function cancelUpload(uploadId: string) {
       const upload = get().uploads.get(uploadId);
       if(!upload) return;
+
+      upload.abortController.abort();
 
       set((state) => {
         state.uploads.set(uploadId, {
