@@ -2,7 +2,9 @@ import { useUploads } from "../store/upload";
 import { UploadWidgetUploadItem } from "./upload-widget-upload-item";
 
 export function UploadWidgetUploadList() {
-  const  {uploads} = useUploads()
+  const uploads = useUploads((store) => store.uploads);
+
+  console.log(uploads)
   const isUploadListEmpty = uploads.size === 0;
   return (
     <div className="px-3 flex flex-col gap-3">

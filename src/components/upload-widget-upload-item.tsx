@@ -29,7 +29,7 @@ export function UploadWidgetUploadItem({ upload }: UploadWidgetUploadItemProps) 
         </span>
 
         <span className="text-xs text-zinc-400 flex gap-1.5 items-center">
-          <span className="line-through">{formatBytes(upload.file.size)}</span>
+          <span className="line-through">{}</span>
           <div className="size-1 rounded-full bg-zinc-700" />
           <span>
             300KB
