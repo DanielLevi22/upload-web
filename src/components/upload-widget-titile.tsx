@@ -1,17 +1,19 @@
 import { UploadCloud } from "lucide-react";
+import { usePendingUploads } from "../store/upload";
 
 export function UploadWidgetTitle() {
+    const { globalPercentage,isThereAnyPendingUploads } = usePendingUploads()
+  
 
-  const isThereAnyPendindUpload = true;
-  const uploadGlobalPercentage = 66;
+
   return (
     <div className="flex items-center gap-1.5 text-sm font-medium">
       <UploadCloud className="size-4 text-zinc-400" strokeWidth={1.5} />
-      {isThereAnyPendindUpload ? (
+      {isThereAnyPendingUploads ? (
         <span className="flex items-baseline gap-1">
           Uploading{" "}
           <span className="text-xs text-zinc-400 tabular-nums">
-            {uploadGlobalPercentage}%
+            {globalPercentage}%
           </span>
         </span>
       ) : (
