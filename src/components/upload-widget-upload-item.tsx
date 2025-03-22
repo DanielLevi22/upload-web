@@ -100,8 +100,8 @@ export function UploadWidgetUploadItem({
             }
           }}
         >
-          <Download className="size-4" strokeWidth={1.5} />
-          <span className="sr-only">Download compressed image</span>
+         <Download className="size-4" strokeWidth={1.5} />
+         <span className="sr-only">Download compressed image</span>
         </Button>
 
         <Button
