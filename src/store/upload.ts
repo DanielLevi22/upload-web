@@ -81,6 +81,7 @@ export const useUploads = create<UploadState, [["zustand/immer", never]]>(
           },
           { signal: abortController.signal }
         );
+        
 
         updateUpload(uploadId, {
           status: "success",

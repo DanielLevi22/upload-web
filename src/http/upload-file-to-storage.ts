@@ -18,7 +18,6 @@ export async function uploadFileToStorage(
   
   data.append("file", file);
   
-  console.log("Data",Array.from(data.entries()));
 
   const response = await axios.post<{ url: string }>(
     "http://localhost:3333/uploads",
