@@ -23,6 +23,20 @@ enableMapSet();
 export const useUploads = create<UploadState, [["zustand/immer", never]]>(
   immer((set, get) => {
 
+    function updateUpload(uploadId: string, data: Partial<Upload>) {
+      const upload = get().uploads.get(uploadId);
+
+      if (!upload) {
+        return;
+      }
+
+      set((state) => {
+        state.uploads.set(uploadId, {
+          ...upload,
+          ...data,
+        });
+      });
+    }
     async function processUpload(uploadId: string) {
       const  upload = get().uploads.get(uploadId);
 
@@ -33,12 +47,9 @@ export const useUploads = create<UploadState, [["zustand/immer", never]]>(
           {
             file: upload.file,
             onProgress: (sizeInBytes) => {
-              set((state) => {
-                state.uploads.set(uploadId, {
-                  ...upload,
-                  originalSizeInBytes: sizeInBytes,
-                  status: "progress",
-                });
+              updateUpload(uploadId, {
+                status: "progress",
+                originalSizeInBytes: sizeInBytes,
               });
             },
           },
@@ -46,29 +57,20 @@ export const useUploads = create<UploadState, [["zustand/immer", never]]>(
 
         )
   
-        set((state) => {
-          state.uploads.set(uploadId, {
-            ...upload,
-            status: "success",
-          });
+        updateUpload(uploadId, {
+          status: "success",
         });
         
       } catch (error) {
         if(error instanceof CanceledError) {
-         return set((state) => {
-            state.uploads.set(uploadId, {
-              ...upload,
-              status: "canceled",
-            });
-          });
+         return updateUpload(uploadId, {
+          status: "canceled",
+        });
         }
         console.log(error)
         
-         set((state) => {
-          state.uploads.set(uploadId, {
-            ...upload,
-            status: "error",
-          });
+        updateUpload(uploadId, {
+          status: "error",
         });
       }
 
