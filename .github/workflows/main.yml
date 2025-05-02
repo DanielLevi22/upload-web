@@ -46,5 +46,5 @@ jobs:
       - name: Sync files to S3
         id: sync-files-to-s3
         run: |
-           aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET }} --delete --exclude'.*git*'
+           aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET }} --delete 
            
